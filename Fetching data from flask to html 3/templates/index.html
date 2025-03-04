@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask Dynamic Content</title>
+</head>
+<body>
+  <h3 id="mainHeading">Loading...</h3> <!-- This will be updated dynamically -->
+
+  <script>
+    // Get the h3 element by its id
+    let headingVar = document.getElementById('mainHeading');
+
+    // Define an asynchronous function to fetch the heading
+    async function fetchHeading() {
+      try {
+        // Await the fetch response from the endpoint '/get_heading'
+        let response = await fetch('/get_heading');
+        
+        // Convert the response into JSON format
+        let data = await response.json();
+        
+        // Update the h3 element's inner text with the fetched data
+        headingVar.innerText = data.heading;
+
+
+      } 
+      
+      
+      catch (error) {
+        // In case of an error, display an error message
+        headingVar.innerText = "ERROR WHILE DATA FETCH";
+        console.error("Error fetching data:", error);
+      }
+
+      
+    }
+
+    // Call the fetchHeading function when the script loads
+    fetchHeading();
+  </script>
+</body>
+</html>
